@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style >
+  body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(bg.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+
+
+  }
+  #countdown {
+font-size: 36px; /* Ajustar el tamaño del texto */
+font-family: Arial, sans-serif;
+background-color: #cde2f9; /* Color de fondo celeste claro */
+padding: 20px; /* Añadir más espacio alrededor del texto */
+border-radius: 10px; /* Bordes más redondeados */
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+display: inline-block;
+color: #333; /* Color de texto oscuro */
+}
+
+/* Estilo para las secciones de hora, minuto y segundo */
+#countdown span {
+margin-right: 5px; /* Añadir un margen a la derecha */
+}
+
+/* Estilo para el espacio entre secciones */
+#countdown span::after {
+content: "\00a0"; /* Insertar un espacio en blanco */
+color: #fff; /* Color blanco */
+}
+.button{
+  width: 420px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(9px);
+  color: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+
+  }
+  .button:hover{
+      background-color: transparent;
+      border: 2px solid Aqua;
+     color: white;
+
+
+     }
+
+
+
+  </style>
+  <title>Tiempo mi amor</title>
+</head>
+<body>
+
+  <div>
+    <h1>Eso falta mi amor</h1>
+    <div id="countdown"></div>
+  </div>
+  <button class="button" id="redirectButton" style="display:none;">Ir a otra página</button>
+
+  <script >
+  // Definir la hora de finalización en formato "HH:MM:SS"
+  const targetTime = '00:15:00';
+
+  // Función para calcular la diferencia de tiempo entre la hora actual y la hora de finalización
+  function calculateCountdown(targetTime) {
+    const now = new Date();
+    const target = new Date();
+    const [hours, minutes, seconds] = targetTime.split(':');
+    target.setHours(hours);
+    target.setMinutes(minutes);
+    target.setSeconds(seconds);
+
+    let difference = target - now;
+
+    if (difference < 0) {
+      difference += 24 * 60 * 60 * 1000; // Agregar 24 horas en milisegundos si la hora ya pasó hoy
+    }
+
+    return difference;
+  }
+
+  // Función para mostrar el tiempo restante en el contador
+  function displayCountdown() {
+    const countdown = document.getElementById('countdown');
+    const remainingTime = calculateCountdown(targetTime);
+    const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+    const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval);
+      document.getElementById('redirectButton').style.display = 'block'; // Mostrar el botón cuando el tiempo haya terminado
+      countdown.textContent = 'Tiempo terminado';
+    } else {
+      countdown.textContent = `${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+    }
+  }
+
+  // Actualizar el contador cada segundo
+  const timerInterval = setInterval(displayCountdown, 1000);
+
+  // Función para redireccionar a otra página
+  document.getElementById('redirectButton').addEventListener('click', function() {
+    window.location.href = 'otra_pagina.html';
+  });
+
+  </script>
+</body>
+</html>
