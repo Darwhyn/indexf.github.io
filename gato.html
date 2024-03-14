@@ -3,21 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Imagen Capturada</title>
+<style >
+body{
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background: url(bg.jpg) no-repeat;
+background-size: cover;
+background-position: center;
+
+
+}
+
+
+
+	.button{
+	  width: 320px;
+	  background: transparent;
+	  border: 2px solid rgba(255, 255, 255, .2);
+	  backdrop-filter: blur(9px);
+	  color: #fff;
+	  border-radius: 12px;
+	  padding: 30px 40px;
+
+	  }
+	  .button:hover{
+	      background-color: transparent;
+	      border: 2px solid Aqua;
+	     color: white;
+
+
+
+}
+
+</style>
+<title>Descargar Video</title>
 </head>
 <body>
 
-<h1>Imagen Capturada</h1>
-<img id="captured-img" src="" alt="Imagen Capturada">
+<h1>Feliz Aniversario AMor</h1>
 
-<script>
-// Obtener la imagen capturada del almacenamiento local
-const capturedImg = document.getElementById('captured-img');
-const imgData = localStorage.getItem('capturedImage');
-if (imgData) {
-  capturedImg.src = imgData;
-} else {
-  capturedImg.style.display = 'none';
+
+<a href="power.html"><button class="button" type="button" name="Powe">PowerPoint</button> </a>
+
+<a id="download-link" download="Aniversario.mp4">
+  <button>Descargar</button>
+</a>
+<video id="video" controls>
+  <source src="Aniversario.mp4" type="video/mp4">
+
+</video>
+<script >
+const video = document.getElementById('video');
+const downloadLink = document.getElementById('download-link');
+
+downloadLink.addEventListener('click', function() {
+  const videoSrc = video.src;
+  const videoName = getVideoName(videoSrc);
+
+  // Establecer el enlace de descarga con el nombre del video
+  downloadLink.href = videoSrc;
+  downloadLink.setAttribute('download', Aniversario.mp4);
+});
+
+function getVideoName(videoSrc) {
+  const slashIndex = videoSrc.lastIndexOf('Aniversario.mp4');
+  return videoSrc.substring(slashIndex + 1);
 }
 </script>
 
